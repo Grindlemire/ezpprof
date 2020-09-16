@@ -7,6 +7,29 @@ I wanted to have as simple integration with profiling as possible. This is reall
 
 
 ## How do I run it?
-If you want to profile a cli use the [cli](https://github.com/Grindlemire/ezpprof/tree/master/cli) package (package name is still `ezpprof`). [Example](https://github.com/Grindlemire/ezpprof/tree/master/cli/example)
 
-If you want to profile a server use the [server](https://github.com/Grindlemire/ezpprof/tree/master/server) package (package name is still `ezpprof`). [Example](https://github.com/Grindlemire/ezpprof/tree/master/server/example)
+### cli: 
+```
+defer ezpprof.RunProfiler(ezpprof.Opts{}).Stop()
+```
+The options are
+
+```
+type Opts struct {
+	Mem         bool   `long:"pprof_mem"                env:"pprof_mem"   description:"Memory profile. Mutually exlusive with all the other modes." `
+	CPU         bool   `long:"pprof_cpu"                env:"pprof_cpu"   description:"CPU profile. Mutually exlusive with all the other modes."    `
+	Trace       bool   `long:"pprof_trace"              env:"pprof_trace" description:"Trace profile. Mutually exlusive with all the other modes."  `
+	Block       bool   `long:"pprof_block"              env:"pprof_block" description:"Block profile. Mutually exlusive with all the other modes."  `
+	Mutex       bool   `long:"pprof_mutex"              env:"pprof_mutex" description:"Mutex profile. Mutually exlusive with all the other modes."  `
+	ProfilePath string `long:"pprof_dir"   default:"./" env:"pprof_dir"   description:"The ouptut directory where ezpprof will write the file"`
+}
+```
+
+[Full Example](https://github.com/Grindlemire/ezpprof/tree/master/cli/example)
+
+### server: 
+```
+ezpprof.ServeProfile(7778)
+```
+
+[Full Example](https://github.com/Grindlemire/ezpprof/tree/master/server/example)
